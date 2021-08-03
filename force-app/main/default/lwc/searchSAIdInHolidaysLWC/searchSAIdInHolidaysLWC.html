@@ -1,0 +1,40 @@
+<template>
+    <div class="slds-size_medium">
+    <lightning-card title="Search South Africa Id Number">
+        <lightning-input class="inputSAField" pattern="[0-9]{13}" type="text" label="South Africa Id Number" value={inputSouthAfricaIdNumber} onchange={changedSouthAfricaIdNumber} maxlength = "13" minlength = "13" required="true" message-when-value-missing="Complete this field."></lightning-input>
+
+        <div slot="footer">
+            <div slot="actions">
+                <lightning-button class="slds-align_absolute-center" variant="brand" label="Search" title="Search South Africa Id Number" onclick={searchId} disabled={hideSearchButton} slot="actions"></lightning-button>
+            </div>
+            <div style="height:10px"></div>
+            <p>"Insert your South Africa Id Number and click in the Search button to check if there are any important public holidays on your date of birth."</p>
+        </div>
+    </lightning-card>
+</div>
+
+
+<div if:true={showContactFromDatabase}>
+    <lightning-card title="Search Results">
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-5">
+                <lightning-input pattern="[0-9]{13}" type="text" label="South Africa Id Number" value={outputSouthAfricaIdNumber} disabled="true"></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <lightning-input type="date" label="Birthdate" value={outputBirthdate} disabled="true"></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <lightning-input type="text" label="Gender" value={outputGender} disabled="true"></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <lightning-input type="text" label="Citizenship" value={outputCitizenship} disabled="true"></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <lightning-input type="text" label="Times Searched" value={outputTimesSearched} disabled="true"></lightning-input>
+            </div>
+        </div>
+    </lightning-card>
+</div>
+
+
+</template>
