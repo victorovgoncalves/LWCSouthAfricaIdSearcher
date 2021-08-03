@@ -1,4 +1,5 @@
-import { LightningElement,track} from 'lwc';
+import { LightningElement,api,track,wire} from 'lwc';
+import searchSouthAfricaIdNumber from '@salesforce/apex/searchSAIdLWController.searchSouthAfricaIdNumber';
 
 export default class SearchSAIdInHolidaysLWC extends LightningElement {
     inputSouthAfricaIdNumber = '';
@@ -97,6 +98,35 @@ export default class SearchSAIdInHolidaysLWC extends LightningElement {
     }
     searchId(event)
     {
+        this.hideContactFromDatabase = true;
+        console.log('inputSouthAfricaIdNumber : '+this.inputSouthAfricaIdNumber);
+        console.log('inputBirthdate : '+this.inputBirthdate);
+        console.log('inputGender : '+this.inputGender);
+        console.log('inputCitizenship : '+this.inputCitizenship);
         
+        //@wire(searchSouthAfricaIdNumber, {contactSouthAfricaIdNumber: inputSouthAfricaIdNumber, contactBirthdayDate: inputBirthdate, contactGender: inputGender,contactCitizen: inputCitizenship});
+        /*contactDMLMap({error,data}){
+            if (data) {
+                console.log('data of contactDMLMap: '+data);
+            } else if (error) {
+                console.log('error of contactDMLMap: '+error);
+        }
+    }*/
+    
+        searchSouthAfricaIdNumber({contactSouthAfricaIdNumber: this.inputSouthAfricaIdNumber, contactBirthdayDate: this.inputBirthdate, contactGender: this.inputGender,contactCitizen: this.inputCitizenship})
+            .then(result => {
+                console.log('retorno do apex:'+JSON.stringify(result));
+                var contactWasInserted = true;
+                if (contactWasInserted) {                    
+                    //this.fireSuccessToast();
+                } else {
+                    console.log('First name was NOT updated');
+                }
+            })
+            .catch(error => {
+                console.log('error: ', error);
+            });
+    
+
     }
 }
